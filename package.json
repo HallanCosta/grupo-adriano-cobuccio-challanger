@@ -1,0 +1,19 @@
+{
+  "name": "grupo-adriano-cobuccio-challanger",
+  "private": true,
+  "description": "Desafio técnico — carteira financeira do Grupo Adriano Cobuccio",
+  "scripts": {
+    "dev": "pnpm -r --parallel dev",
+    "dev:web": "pnpm --filter web dev",
+    "dev:api": "pnpm --filter api dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "test": "pnpm -r --if-present test",
+    "docker:up": "docker compose up -d --build",
+    "docker:down": "docker compose down"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@11.13.0"
+}
