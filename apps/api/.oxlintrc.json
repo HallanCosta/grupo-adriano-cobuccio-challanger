@@ -1,10 +1,101 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "rules": {
-    "typescript/no-explicit-any": "off",
-    "typescript/no-floating-promises": "error"
-  },
+  "plugins": [
+    "eslint",
+    "typescript",
+    "unicorn",
+    "oxc",
+    "import",
+    "vitest"
+  ],
   "env": {
     "node": true
-  }
+  },
+  "ignorePatterns": [
+    "dist/**"
+  ],
+  "rules": {
+    "typescript/no-explicit-any": "error",
+    "typescript/no-floating-promises": "error",
+    "typescript/no-non-null-assertion": "error",
+    "typescript/explicit-function-return-type": [
+      "error",
+      {
+        "allowExpressions": true,
+        "allowTypedFunctionExpressions": true,
+        "allowHigherOrderFunctions": true
+      }
+    ],
+    "typescript/explicit-module-boundary-types": [
+      "error",
+      {
+        "allowHigherOrderFunctions": true
+      }
+    ],
+    "eslint/no-console": "error",
+    "eslint/func-style": [
+      "error",
+      "expression"
+    ],
+    "eslint/max-lines": [
+      "warn",
+      {
+        "max": 300,
+        "skipBlankLines": true,
+        "skipComments": true
+      }
+    ],
+    "eslint/curly": [
+      "error",
+      "all"
+    ],
+    "eslint/prefer-const": [
+      "error",
+      {
+        "destructuring": "all"
+      }
+    ],
+    "eslint/no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrors": "none",
+        "ignoreRestSiblings": true
+      }
+    ],
+    "unicorn/filename-case": [
+      "error",
+      {
+        "case": "camelCase"
+      }
+    ],
+    "vitest/no-focused-tests": "error",
+    "import/no-cycle": "warn",
+    "import/no-duplicates": "error",
+    "import/first": "error",
+    "import/newline-after-import": "error",
+    "import/extensions": [
+      "error",
+      "ignorePackages"
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/*.spec.ts",
+        "**/*.e2e.ts",
+        "test/**"
+      ],
+      "rules": {
+        "typescript/no-explicit-any": "off",
+        "typescript/explicit-function-return-type": "off",
+        "typescript/explicit-module-boundary-types": "off",
+        "typescript/no-non-null-assertion": "off",
+        "eslint/no-console": "off",
+        "eslint/func-style": "off",
+        "eslint/max-lines": "off"
+      }
+    }
+  ]
 }
