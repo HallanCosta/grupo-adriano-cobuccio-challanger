@@ -2,10 +2,10 @@ import { Module } from '@nestjs/common';
 import { randomUUID } from 'node:crypto';
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import { LoggerModule } from 'nestjs-pino';
-import { AppController } from './app.controller.js';
-import { AppService } from './app.service.js';
-import { HealthModule } from './health/health.module.js';
-import { MetricsModule } from './metrics/metrics.module.js';
+import { AppController } from './appController.js';
+import { AppService } from './appService.js';
+import { HealthModule } from './health/healthModule.js';
+import { MetricsModule } from './metrics/metricsModule.js';
 
 const CORRELATION_HEADER = 'x-correlation-id';
 
