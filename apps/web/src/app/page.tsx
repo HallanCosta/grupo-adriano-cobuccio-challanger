@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
 
 export default function Home() {
@@ -19,6 +21,12 @@ export default function Home() {
           Docker Compose na raiz do monorepo.
         </p>
         <nav className="mt-8 flex flex-col gap-3 text-sm font-medium sm:flex-row">
+          <Link
+            href="/cadastro"
+            className="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-primary-foreground transition hover:opacity-90"
+          >
+            Criar conta
+          </Link>
           <a
             href={`${apiUrl}/health`}
             className="inline-flex items-center justify-center rounded-full bg-zinc-950 px-5 py-2.5 text-white transition hover:bg-zinc-700 dark:bg-zinc-50 dark:text-zinc-950 dark:hover:bg-zinc-300"
