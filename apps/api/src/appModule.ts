@@ -1,12 +1,16 @@
 import { Module } from '@nestjs/common';
 import { randomUUID } from 'node:crypto';
 import type { IncomingMessage, ServerResponse } from 'node:http';
+import { APP_FILTER, APP_PIPE } from '@nestjs/core';
 import { LoggerModule } from 'nestjs-pino';
 import { AppController } from './appController.js';
 import { AppService } from './appService.js';
 import { HealthModule } from './health/healthModule.js';
 import { MetricsModule } from './metrics/metricsModule.js';
+import { AuthModule } from './modules/auth/authModule.js';
 import { DatabaseModule } from './shared/infra/database/databaseModule.js';
+import { DomainExceptionFilter } from './shared/infra/http/domainExceptionFilter.js';
+import { createValidationPipe } from './shared/infra/http/validationPipe.js';
 
 const CORRELATION_HEADER = 'x-correlation-id';
 
@@ -33,7 +37,14 @@ const CORRELATION_HEADER = 'x-correlation-id';
             req.url === '/metrics' || req.url?.startsWith('/metrics?') === true,
         },
         redact: {
-          paths: ['req.headers.authorization', 'req.headers.cookie'],
+          // Bodies aren't logged, but never let a password or hash slip in.
+          paths: [
+            'req.headers.authorization',
+            'req.headers.cookie',
+            'req.body.password',
+            '*.password',
+            '*.passwordHash',
+          ],
           censor: '[redacted]',
         },
         transport:
@@ -48,8 +59,13 @@ const CORRELATION_HEADER = 'x-correlation-id';
     DatabaseModule,
     HealthModule,
     MetricsModule,
+    AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    { provide: APP_PIPE, useFactory: createValidationPipe },
+    { provide: APP_FILTER, useClass: DomainExceptionFilter },
+  ],
 })
 export class AppModule {}

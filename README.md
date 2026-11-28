@@ -7,6 +7,7 @@ Desafio técnico: monorepo com **Next.js** (`apps/web`), **Nest.js** (`apps/api`
 - Node.js 24, pnpm workspaces
 - `apps/web`: Next.js (App Router, Server Actions) na porta **3000**
 - `apps/api`: Nest.js na porta **3001**
+  - `POST /auth/register` — cadastro de usuário
   - `GET /health` — saúde da API e checagem do Postgres
   - `GET /metrics` — métricas Prometheus (`prom-client`)
   - logs estruturados em JSON com `x-correlation-id`
