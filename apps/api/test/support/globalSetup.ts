@@ -1,5 +1,5 @@
 import pg from 'pg';
-import { runMigrations } from '../../src/shared/infra/database/migrator.js';
+import { runMigrations } from '@/shared/infra/database/migrator.js';
 import { resolveDatabaseUrls } from './testDatabase.js';
 
 /** Creates the test database if needed and applies the migrations. */

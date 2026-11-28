@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { LedgerModule } from '../ledger/ledgerModule.js';
+import { LedgerModule } from '@/modules/ledger/ledgerModule.js';
 import { RegisterUser } from './application/commands/registerUser.js';
 import { PasswordHasher } from './domain/ports/passwordHasher.js';
 import { UserRepository } from './domain/ports/userRepository.js';

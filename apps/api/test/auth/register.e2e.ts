@@ -3,8 +3,8 @@ import { Test } from '@nestjs/testing';
 import pg from 'pg';
 import request from 'supertest';
 import type { App } from 'supertest/types.js';
-import { AppModule } from '../../src/appModule.js';
-import { AccountRepository } from '../../src/modules/ledger/domain/ports/accountRepository.js';
+import { AppModule } from '@/appModule.js';
+import { AccountRepository } from '@/modules/ledger/domain/ports/accountRepository.js';
 
 const validBody = {
   name: 'Maria Silva',

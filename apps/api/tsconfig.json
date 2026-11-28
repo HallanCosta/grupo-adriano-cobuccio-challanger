@@ -16,6 +16,9 @@
     "declarationMap": false,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "types": ["vitest/globals", "node"]
+    "types": ["vitest/globals", "node"],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   }
 }

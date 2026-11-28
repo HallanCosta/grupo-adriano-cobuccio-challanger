@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { UnitOfWork } from '../../../../shared/application/ports/unitOfWork.js';
-import { AccountRepository } from '../../../ledger/domain/ports/accountRepository.js';
-import { normalizeEmail } from '../../domain/email.js';
-import { PasswordHasher } from '../../domain/ports/passwordHasher.js';
-import { UserRepository } from '../../domain/ports/userRepository.js';
+import { UnitOfWork } from '@/shared/application/ports/unitOfWork.js';
+import { AccountRepository } from '@/modules/ledger/domain/ports/accountRepository.js';
+import { normalizeEmail } from '@/modules/auth/domain/email.js';
+import { PasswordHasher } from '@/modules/auth/domain/ports/passwordHasher.js';
+import { UserRepository } from '@/modules/auth/domain/ports/userRepository.js';
 
 export type RegisterUserInput = {
   name: string;

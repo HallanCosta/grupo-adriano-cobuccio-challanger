@@ -1,5 +1,5 @@
 import type { NodePgDatabase } from 'drizzle-orm/node-postgres';
-import type { TransactionContext } from '../../application/ports/unitOfWork.js';
+import type { TransactionContext } from '@/shared/application/ports/unitOfWork.js';
 import type * as schema from './schema.js';
 
 export type Database = NodePgDatabase<typeof schema>;

@@ -61,6 +61,17 @@ const eslintConfig = defineConfig([
       'no-restricted-syntax': ['error', NO_INLINE_JSX_HANDLER, NO_CLASSES],
       'max-lines': ['warn', { max: 300, skipBlankLines: true, skipComments: true }],
       'unicorn/filename-case': ['error', { case: 'camelCase' }],
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              regex: '^\\.\\./',
+              message: 'Use the @/ alias instead of parent-relative imports.',
+            },
+          ],
+        },
+      ],
     },
   },
   {

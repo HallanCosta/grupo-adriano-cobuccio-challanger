@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import argon2 from 'argon2';
-import { PasswordHasher } from '../domain/ports/passwordHasher.js';
+import { PasswordHasher } from '@/modules/auth/domain/ports/passwordHasher.js';
 
 /** argon2id with the library defaults (64 MiB, 3 iterations). */
 @Injectable()

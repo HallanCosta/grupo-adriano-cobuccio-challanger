@@ -1,4 +1,4 @@
-import { DomainError } from '../../../../shared/domain/domainError.js';
+import { DomainError } from '@/shared/domain/domainError.js';
 
 export class EmailAlreadyInUseError extends DomainError {
   readonly code = 'EMAIL_ALREADY_IN_USE';

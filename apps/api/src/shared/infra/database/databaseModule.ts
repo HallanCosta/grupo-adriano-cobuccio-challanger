@@ -1,7 +1,7 @@
 import { Global, Module } from '@nestjs/common';
 import { DrizzleModule } from '@nestjs/drizzle';
 import { drizzle } from 'drizzle-orm/node-postgres';
-import { UnitOfWork } from '../../application/ports/unitOfWork.js';
+import { UnitOfWork } from '@/shared/application/ports/unitOfWork.js';
 import { requireDatabaseUrl } from './database.js';
 import { DrizzleUnitOfWork } from './drizzleUnitOfWork.js';
 import * as schema from './schema.js';
