@@ -5,73 +5,47 @@ Desafio técnico: monorepo com **Next.js** (`apps/web`), **Nest.js** (`apps/api`
 ## Stack
 
 - Node.js 24, pnpm workspaces
-- `apps/web`: Next.js (App Router, TypeScript, pronto para Server Actions) na porta **3000**
-- `apps/api`: Nest.js (TypeScript) na porta **3001**
-  - `GET /health` — saúde da API e checagem simples do Postgres
-  - `GET /metrics` — métricas Prometheus (`prom-client`: defaults + contador/histograma HTTP)
-  - logs estruturados em JSON com `x-correlation-id` (gera se o header não vier e devolve na resposta)
-- Postgres na porta **5432**, exposta apenas em `127.0.0.1`
-
-A arquitetura de domínio ainda não foi implementada. A pasta `apps/api/src/modules` está preparada para Clean Architecture por módulo (`domain` / `application` / `infra`).
+- `apps/web`: Next.js (App Router, Server Actions) na porta **3000**
+- `apps/api`: Nest.js na porta **3001**
+  - `GET /health` — saúde da API e checagem do Postgres
+  - `GET /metrics` — métricas Prometheus (`prom-client`)
+  - logs estruturados em JSON com `x-correlation-id`
+- Postgres na porta **5432** (só em `127.0.0.1`), com Drizzle ORM e migrations em `apps/api/drizzle`
 
 ## Pré-requisitos
 
-- Node.js 20+ (recomendado 24; há um `.nvmrc` na raiz)
-- [pnpm](https://pnpm.io/) 11
-- Docker e Docker Compose (para o fluxo principal)
+- Docker e Docker Compose
+- Node.js 24 (há um `.nvmrc`) e [pnpm](https://pnpm.io/) 11, usados pelos comandos abaixo
 
-## Rodando com Docker Compose (recomendado)
+## Rodando
 
 ```sh
 cp .env.example .env
-docker compose up -d --build
+pnpm compose:down && pnpm compose:up   # docker compose down / docker compose up --build -d
 ```
 
-Serviços:
+As migrations são aplicadas automaticamente (serviço `migrate`) antes da API subir. Logs: `docker compose logs -f`.
 
-| Serviço  | URL                          |
-|----------|------------------------------|
-| Web      | http://localhost:3000        |
-| API      | http://localhost:3001        |
-| Health   | http://localhost:3001/health |
+| Serviço  | URL                           |
+|----------|-------------------------------|
+| Web      | http://localhost:3000         |
+| API      | http://localhost:3001         |
+| Health   | http://localhost:3001/health  |
 | Metrics  | http://localhost:3001/metrics |
-| Postgres | `127.0.0.1:5432`             |
+| Postgres | `127.0.0.1:5432`              |
 
-Para encerrar (o volume do Postgres é preservado):
+## Testes
 
-```sh
-docker compose down
-```
-
-## Rodando localmente (sem Docker, exceto o banco)
-
-Suba só o Postgres:
-
-```sh
-cp .env.example .env
-docker compose up -d postgres
-```
-
-No `.env`, mantenha `DATABASE_URL` com host `localhost`. Depois:
+Com o ambiente no ar (`pnpm compose:up`):
 
 ```sh
 pnpm install
-pnpm dev
+pnpm test       # unitários
+pnpm test:e2e   # integração com o Postgres (usa um banco separado, <POSTGRES_DB>_test)
 ```
 
-Isso sobe a API em `http://localhost:3001` e o web em `http://localhost:3000`.
-
-Scripts úteis na raiz:
-
-```sh
-pnpm dev        # web + api em paralelo
-pnpm dev:web
-pnpm dev:api
-pnpm build
-pnpm lint
-pnpm test
-```
+Outros scripts: `pnpm lint`, `pnpm typecheck`, `pnpm build`, `pnpm db:migrate`.
 
 ## Variáveis de ambiente
 
-Veja `.env.example`. Não commite o arquivo `.env`. Os valores de exemplo são apenas para desenvolvimento local.
+Veja `.env.example`. Não commite o arquivo `.env`.

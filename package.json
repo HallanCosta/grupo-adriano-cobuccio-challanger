@@ -8,9 +8,14 @@
     "dev:api": "pnpm --filter api dev",
     "build": "pnpm -r build",
     "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r --if-present typecheck",
     "test": "pnpm -r --if-present test",
     "docker:up": "docker compose up -d --build",
-    "docker:down": "docker compose down"
+    "docker:down": "docker compose down",
+    "db:migrate": "pnpm --filter api db:migrate",
+    "test:e2e": "pnpm --filter api test:e2e",
+    "compose:up": "docker compose up --build -d",
+    "compose:down": "docker compose down"
   },
   "engines": {
     "node": ">=20"

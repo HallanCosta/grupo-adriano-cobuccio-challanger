@@ -19,7 +19,23 @@ services:
       retries: 10
       start_period: 10s
 
+  # Applies the Drizzle migrations once and exits; the api waits for it.
+  migrate:
+    image: gac-api
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    command: ["node", "dist/shared/infra/database/migrate.js"]
+    restart: "no"
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+    depends_on:
+      postgres:
+        condition: service_healthy
+
   api:
+    image: gac-api
     build:
       context: .
       dockerfile: apps/api/Dockerfile
@@ -35,6 +51,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
     healthcheck:
       test:
         [
@@ -62,6 +80,9 @@ services:
       PORT: 3000
       HOSTNAME: 0.0.0.0
       NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:3001}
+      # Server Actions run inside the web container, so they reach the API
+      # through the Compose network, not localhost.
+      API_URL: http://api:3001
     depends_on:
       api:
         condition: service_healthy

@@ -6,6 +6,7 @@ import { AppController } from './appController.js';
 import { AppService } from './appService.js';
 import { HealthModule } from './health/healthModule.js';
 import { MetricsModule } from './metrics/metricsModule.js';
+import { DatabaseModule } from './shared/infra/database/databaseModule.js';
 
 const CORRELATION_HEADER = 'x-correlation-id';
 
@@ -44,6 +45,7 @@ const CORRELATION_HEADER = 'x-correlation-id';
               },
       },
     }),
+    DatabaseModule,
     HealthModule,
     MetricsModule,
   ],

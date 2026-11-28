@@ -12,7 +12,8 @@
     "node": true
   },
   "ignorePatterns": [
-    "dist/**"
+    "dist/**",
+    "drizzle/**"
   ],
   "rules": {
     "typescript/no-explicit-any": "error",
@@ -95,6 +96,14 @@
         "eslint/no-console": "off",
         "eslint/func-style": "off",
         "eslint/max-lines": "off"
+      }
+    },
+    {
+      "files": [
+        "src/shared/infra/database/migrate.ts"
+      ],
+      "rules": {
+        "eslint/no-console": "off"
       }
     }
   ]
