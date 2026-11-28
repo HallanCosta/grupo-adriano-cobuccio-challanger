@@ -3,11 +3,43 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --primary: #002948;
+  --primary-foreground: #ffffff;
+  --navy: #021a33;
+  --navy-soft: #04274a;
+  --navy-muted: #aebbd0;
+  --navy-card: rgba(6, 30, 56, 0.82);
+  --navy-card-border: rgba(120, 150, 185, 0.28);
+  --navy-input: #0b2240;
+  --navy-input-border: rgba(150, 170, 200, 0.35);
+  --navy-input-text: #dfe7f3;
+  --navy-placeholder: #7e8fa8;
+  --gold: #f0b84a;
+  --gold-light: #f7cd6d;
+  --gold-dark: #d99e2e;
+  --gold-foreground: #0a1a30;
+  --danger: #ff3b3b;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-navy: var(--navy);
+  --color-navy-soft: var(--navy-soft);
+  --color-navy-muted: var(--navy-muted);
+  --color-navy-card: var(--navy-card);
+  --color-navy-card-border: var(--navy-card-border);
+  --color-navy-input: var(--navy-input);
+  --color-navy-input-border: var(--navy-input-border);
+  --color-navy-input-text: var(--navy-input-text);
+  --color-navy-placeholder: var(--navy-placeholder);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-gold-dark: var(--gold-dark);
+  --color-gold-foreground: var(--gold-foreground);
+  --color-danger: var(--danger);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
