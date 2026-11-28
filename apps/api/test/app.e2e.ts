@@ -2,7 +2,7 @@ import { Test, type TestingModule } from '@nestjs/testing';
 import type { INestApplication } from '@nestjs/common';
 import request from 'supertest';
 import type { App } from 'supertest/types.js';
-import { AppModule } from './../src/appModule.js';
+import { AppModule } from '@/appModule.js';
 
 describe('App (e2e)', () => {
   let app: INestApplication<App>;

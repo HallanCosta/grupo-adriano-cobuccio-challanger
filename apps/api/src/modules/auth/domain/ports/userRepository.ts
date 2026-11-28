@@ -1,5 +1,5 @@
-import type { TransactionContext } from '../../../../shared/application/ports/unitOfWork.js';
-import type { NewUser, User } from '../user.js';
+import type { TransactionContext } from '@/shared/application/ports/unitOfWork.js';
+import type { NewUser, User } from '@/modules/auth/domain/user.js';
 
 export abstract class UserRepository {
   /**

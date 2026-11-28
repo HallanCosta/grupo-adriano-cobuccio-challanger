@@ -3,7 +3,7 @@ import { InjectDrizzle } from '@nestjs/drizzle';
 import {
   type TransactionContext,
   UnitOfWork,
-} from '../../application/ports/unitOfWork.js';
+} from '@/shared/application/ports/unitOfWork.js';
 import type { Database } from './database.js';
 
 @Injectable()

@@ -73,6 +73,7 @@
     ],
     "vitest/no-focused-tests": "error",
     "import/no-cycle": "warn",
+    "import/no-relative-parent-imports": "error",
     "import/no-duplicates": "error",
     "import/first": "error",
     "import/newline-after-import": "error",

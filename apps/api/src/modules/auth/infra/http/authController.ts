@@ -6,7 +6,7 @@ import {
   Inject,
   Post,
 } from '@nestjs/common';
-import { RegisterUser } from '../../application/commands/registerUser.js';
+import { RegisterUser } from '@/modules/auth/application/commands/registerUser.js';
 import {
   type RegisterRequest,
   registerRequestSchema,

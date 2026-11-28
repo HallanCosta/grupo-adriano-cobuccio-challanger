@@ -5,7 +5,7 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import type { Response } from 'express';
-import { DomainError, type DomainErrorKind } from '../../domain/domainError.js';
+import { DomainError, type DomainErrorKind } from '@/shared/domain/domainError.js';
 
 const statusByKind: Record<DomainErrorKind, HttpStatus> = {
   conflict: HttpStatus.CONFLICT,

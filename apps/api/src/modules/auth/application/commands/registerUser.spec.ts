@@ -2,14 +2,14 @@ import { randomUUID } from 'node:crypto';
 import {
   type TransactionContext,
   UnitOfWork,
-} from '../../../../shared/application/ports/unitOfWork.js';
-import type { Account } from '../../../ledger/domain/account.js';
-import { AccountType } from '../../../ledger/domain/accountType.js';
-import { AccountRepository } from '../../../ledger/domain/ports/accountRepository.js';
-import { EmailAlreadyInUseError } from '../../domain/errors/emailAlreadyInUseError.js';
-import { PasswordHasher } from '../../domain/ports/passwordHasher.js';
-import { UserRepository } from '../../domain/ports/userRepository.js';
-import type { NewUser, User } from '../../domain/user.js';
+} from '@/shared/application/ports/unitOfWork.js';
+import type { Account } from '@/modules/ledger/domain/account.js';
+import { AccountType } from '@/modules/ledger/domain/accountType.js';
+import { AccountRepository } from '@/modules/ledger/domain/ports/accountRepository.js';
+import { EmailAlreadyInUseError } from '@/modules/auth/domain/errors/emailAlreadyInUseError.js';
+import { PasswordHasher } from '@/modules/auth/domain/ports/passwordHasher.js';
+import { UserRepository } from '@/modules/auth/domain/ports/userRepository.js';
+import type { NewUser, User } from '@/modules/auth/domain/user.js';
 import { RegisterUser } from './registerUser.js';
 
 /** In-memory "database" whose writes only become visible on commit. */
