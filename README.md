@@ -42,9 +42,19 @@ Com o ambiente no ar (`pnpm compose:up`):
 
 ```sh
 pnpm install
-pnpm test       # unitários
-pnpm test:e2e   # integração com o Postgres (usa um banco separado, <POSTGRES_DB>_test)
+pnpm test            # unitários
+pnpm test:e2e        # API (Vitest) + web (Playwright)
+pnpm test:e2e:api    # integração da API com o Postgres (banco separado, <POSTGRES_DB>_test)
+pnpm test:e2e:web    # Playwright no /cadastro, contra o Compose (http://localhost:3000)
 ```
+
+Na primeira execução do e2e web, instale o Chromium do Playwright:
+
+```sh
+pnpm --filter web exec playwright install chromium
+```
+
+A URL base do e2e web pode ser trocada com `PLAYWRIGHT_BASE_URL` (padrão `http://localhost:3000`).
 
 Outros scripts: `pnpm lint`, `pnpm typecheck`, `pnpm build`, `pnpm db:migrate`.
 
