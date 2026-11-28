@@ -1,4 +1,4 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { Test, type TestingModule } from '@nestjs/testing';
 import { AppController } from './appController.js';
 import { AppService } from './appService.js';
 
@@ -18,7 +18,7 @@ describe('AppController', () => {
     it('should return API info', () => {
       expect(appController.getInfo()).toEqual({
         name: 'grupo-adriano-cobuccio-api',
-        endpoints: ['GET /health', 'GET /metrics'],
+        endpoints: ['GET /health', 'GET /metrics', 'POST /auth/register'],
       });
     });
   });

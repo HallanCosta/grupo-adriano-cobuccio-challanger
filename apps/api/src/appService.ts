@@ -10,7 +10,7 @@ export class AppService {
   getInfo(): AppInfo {
     return {
       name: 'grupo-adriano-cobuccio-api',
-      endpoints: ['GET /health', 'GET /metrics'],
+      endpoints: ['GET /health', 'GET /metrics', 'POST /auth/register'],
     };
   }
 }
