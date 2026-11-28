@@ -3,9 +3,9 @@
 import { useActionState, useState, type ChangeEvent } from "react";
 import { GACButton } from "@/components/gac/gacButton";
 import { ErrorIcon } from "@/components/gac/errorIcon";
+import { EmailIcon, LockIcon, UserIcon } from "@/components/gac/fieldIcons";
 import { GACInput } from "@/components/gac/gacInput";
 import { registerUser } from "./actions";
-import { EmailIcon, LockIcon, UserIcon } from "./fieldIcons";
 import { initialRegisterState } from "./registerState";
 import { RegisterSuccess } from "./registerSuccess";
 

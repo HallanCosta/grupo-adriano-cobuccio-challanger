@@ -9,6 +9,8 @@ export type GACInputProps = Omit<
   id: string;
   label: string;
   icon?: ReactNode;
+  /** Rendered after the input inside the field, e.g. a show/hide button. */
+  endAdornment?: ReactNode;
   error?: string;
 };
 
@@ -16,6 +18,7 @@ export const GACInput = ({
   id,
   label,
   icon,
+  endAdornment,
   error,
   className,
   ...inputProps
@@ -52,6 +55,7 @@ export const GACInput = ({
             .filter(Boolean)
             .join(" ")}
         />
+        {endAdornment}
       </div>
       {isInvalid ? (
         <p
