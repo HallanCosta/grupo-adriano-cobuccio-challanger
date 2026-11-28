@@ -27,6 +27,12 @@ export default function Home() {
           >
             Criar conta
           </Link>
+          <Link
+            href="/login"
+            className="inline-flex items-center justify-center rounded-full border border-zinc-200 px-5 py-2.5 text-zinc-950 transition hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-50 dark:hover:bg-zinc-900"
+          >
+            Entrar
+          </Link>
           <a
             href={`${apiUrl}/health`}
             className="inline-flex items-center justify-center rounded-full bg-zinc-950 px-5 py-2.5 text-white transition hover:bg-zinc-700 dark:bg-zinc-50 dark:text-zinc-950 dark:hover:bg-zinc-300"

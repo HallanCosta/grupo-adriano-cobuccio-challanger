@@ -8,7 +8,7 @@ Desafio técnico: monorepo com **Next.js** (`apps/web`), **Nest.js** (`apps/api`
 - `apps/web`: Next.js (App Router, Server Actions) na porta **3000**
 - `apps/api`: Nest.js na porta **3001**
   - `POST /auth/register` — cadastro de usuário (página `/cadastro` no web)
-  - `POST /auth/login` — login; devolve um JWT
+  - `POST /auth/login` — login; devolve um JWT (página `/login` no web)
   - `GET /auth/me` — usuário autenticado (exige `Authorization: Bearer <token>`)
   - `GET /health` — saúde da API e checagem do Postgres
   - `GET /metrics` — métricas Prometheus (`prom-client`)
@@ -33,6 +33,8 @@ As migrations são aplicadas automaticamente (serviço `migrate`) antes da API s
 |----------|-------------------------------|
 | Web      | http://localhost:3000         |
 | Cadastro | http://localhost:3000/cadastro |
+| Login    | http://localhost:3000/login    |
+| Carteira | http://localhost:3000/carteira (exige login) |
 | API      | http://localhost:3001         |
 | Health   | http://localhost:3001/health  |
 | Metrics  | http://localhost:3001/metrics |
@@ -42,6 +44,7 @@ As migrations são aplicadas automaticamente (serviço `migrate`) antes da API s
 
 - A API assina um JWT (`@nestjs/jwt`, HS256) no `POST /auth/login`. Todas as rotas exigem `Authorization: Bearer <token>`, exceto as marcadas com `@Public()` (`/`, `/health`, `/metrics`, `POST /auth/register` e `POST /auth/login`).
 - Credenciais erradas (e-mail inexistente ou senha incorreta) devolvem sempre o mesmo `401 INVALID_CREDENTIALS`.
+- O web guarda o token em um cookie `httpOnly` (`gac_session`) pela Server Action de `/login`. "Lembrar de mim" torna o cookie persistente; sem ele, é um cookie de sessão. Em HTTPS, defina `SESSION_COOKIE_SECURE=true`.
 - Configuração (veja `.env.example`): `JWT_SECRET` (obrigatório, mínimo de 32 caracteres; a API não sobe sem ele) e `JWT_EXPIRES_IN` (segundos, padrão 3600). Gere um segredo com `openssl rand -base64 48`.
 
 ## Testes
@@ -53,7 +56,7 @@ pnpm install
 pnpm test            # unitários
 pnpm test:e2e        # API (Vitest) + web (Playwright)
 pnpm test:e2e:api    # integração da API com o Postgres (banco separado, <POSTGRES_DB>_test)
-pnpm test:e2e:web    # Playwright no /cadastro, contra o Compose (http://localhost:3000)
+pnpm test:e2e:web    # Playwright em /cadastro e /login, contra o Compose (http://localhost:3000)
 ```
 
 Na primeira execução do e2e web, instale o Chromium do Playwright:
@@ -62,7 +65,7 @@ Na primeira execução do e2e web, instale o Chromium do Playwright:
 pnpm --filter web exec playwright install chromium
 ```
 
-A URL base do e2e web pode ser trocada com `PLAYWRIGHT_BASE_URL` (padrão `http://localhost:3000`).
+A URL base do e2e web pode ser trocada com `PLAYWRIGHT_BASE_URL` (padrão `http://localhost:3000`) e a URL da API usada para criar usuários de teste com `PLAYWRIGHT_API_URL` (padrão `http://localhost:3001`).
 
 Outros scripts: `pnpm lint`, `pnpm typecheck`, `pnpm build`, `pnpm db:migrate`.
 

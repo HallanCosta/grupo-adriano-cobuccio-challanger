@@ -13,11 +13,19 @@ export const RegisterSuccess = ({ name, email }: RegisterSuccessProps) => (
     <p className="mt-1 text-sm text-navy-muted">
       Sua carteira foi aberta com saldo R$ 0,00 para {email}.
     </p>
-    <Link
-      href="/"
-      className="mt-4 inline-block text-sm font-semibold text-gold transition hover:text-gold-light"
-    >
-      Voltar ao início
-    </Link>
+    <div className="mt-4 flex items-center gap-4 text-sm font-semibold">
+      <Link
+        href="/login"
+        className="text-gold transition hover:text-gold-light"
+      >
+        Entrar na conta
+      </Link>
+      <Link
+        href="/"
+        className="text-navy-muted transition hover:text-white"
+      >
+        Voltar ao início
+      </Link>
+    </div>
   </div>
 );

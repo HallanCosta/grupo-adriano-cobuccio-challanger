@@ -16,3 +16,7 @@ A URL base padrão é `http://localhost:3000`. Para apontar para outro host:
 ```sh
 PLAYWRIGHT_BASE_URL=http://localhost:3000 pnpm test:e2e:web
 ```
+
+Os testes cobrem o cadastro (`/cadastro`) e o login (`/login`, `/carteira`).
+A URL da API usada para criar usuários de teste pode ser trocada com
+`PLAYWRIGHT_API_URL` (padrão `http://localhost:3001`).
