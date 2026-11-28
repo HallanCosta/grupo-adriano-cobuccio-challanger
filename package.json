@@ -10,10 +10,12 @@
     "lint": "pnpm -r lint",
     "typecheck": "pnpm -r --if-present typecheck",
     "test": "pnpm -r --if-present test",
+    "test:e2e": "pnpm test:e2e:api && pnpm test:e2e:web",
+    "test:e2e:api": "pnpm --filter api test:e2e",
+    "test:e2e:web": "pnpm --filter web test:e2e",
     "docker:up": "docker compose up -d --build",
     "docker:down": "docker compose down",
     "db:migrate": "pnpm --filter api db:migrate",
-    "test:e2e": "pnpm --filter api test:e2e",
     "compose:up": "docker compose up --build -d",
     "compose:down": "docker compose down"
   },
