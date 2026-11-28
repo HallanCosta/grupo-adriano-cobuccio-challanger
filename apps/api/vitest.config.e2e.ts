@@ -10,7 +10,12 @@ export default defineConfig({
     root: './',
     include: ['test/**/*.e2e.ts'],
     globalSetup: ['./test/support/globalSetup.ts'],
-    env: { DATABASE_URL: testUrl, LOG_LEVEL: 'silent' },
+    env: {
+      DATABASE_URL: testUrl,
+      LOG_LEVEL: 'silent',
+      JWT_SECRET: 'e2e-only-secret-that-is-at-least-32-characters-long',
+      JWT_EXPIRES_IN: '3600',
+    },
     // Suites share one database and clean tables between tests.
     fileParallelism: false,
   },

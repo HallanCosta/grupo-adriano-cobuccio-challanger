@@ -8,6 +8,8 @@ Desafio técnico: monorepo com **Next.js** (`apps/web`), **Nest.js** (`apps/api`
 - `apps/web`: Next.js (App Router, Server Actions) na porta **3000**
 - `apps/api`: Nest.js na porta **3001**
   - `POST /auth/register` — cadastro de usuário (página `/cadastro` no web)
+  - `POST /auth/login` — login; devolve um JWT
+  - `GET /auth/me` — usuário autenticado (exige `Authorization: Bearer <token>`)
   - `GET /health` — saúde da API e checagem do Postgres
   - `GET /metrics` — métricas Prometheus (`prom-client`)
   - logs estruturados em JSON com `x-correlation-id`
@@ -35,6 +37,12 @@ As migrations são aplicadas automaticamente (serviço `migrate`) antes da API s
 | Health   | http://localhost:3001/health  |
 | Metrics  | http://localhost:3001/metrics |
 | Postgres | `127.0.0.1:5432`              |
+
+## Autenticação
+
+- A API assina um JWT (`@nestjs/jwt`, HS256) no `POST /auth/login`. Todas as rotas exigem `Authorization: Bearer <token>`, exceto as marcadas com `@Public()` (`/`, `/health`, `/metrics`, `POST /auth/register` e `POST /auth/login`).
+- Credenciais erradas (e-mail inexistente ou senha incorreta) devolvem sempre o mesmo `401 INVALID_CREDENTIALS`.
+- Configuração (veja `.env.example`): `JWT_SECRET` (obrigatório, mínimo de 32 caracteres; a API não sobe sem ele) e `JWT_EXPIRES_IN` (segundos, padrão 3600). Gere um segredo com `openssl rand -base64 48`.
 
 ## Testes
 

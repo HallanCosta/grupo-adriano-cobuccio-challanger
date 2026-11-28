@@ -48,6 +48,8 @@ services:
       LOG_LEVEL: ${LOG_LEVEL:-info}
       DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
       WEB_ORIGIN: ${WEB_ORIGIN:-http://localhost:3000}
+      JWT_SECRET: ${JWT_SECRET:?Defina JWT_SECRET no .env (veja .env.example)}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-3600}
     depends_on:
       postgres:
         condition: service_healthy
@@ -83,6 +85,7 @@ services:
       # Server Actions run inside the web container, so they reach the API
       # through the Compose network, not localhost.
       API_URL: http://api:3001
+      SESSION_COOKIE_SECURE: ${SESSION_COOKIE_SECURE:-false}
     depends_on:
       api:
         condition: service_healthy
