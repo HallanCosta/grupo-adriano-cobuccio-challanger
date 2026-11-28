@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useActionState, useState, type ChangeEvent } from "react";
 import { GACButton } from "@/components/gac/gacButton";
 import { ErrorIcon } from "@/components/gac/errorIcon";
@@ -40,64 +41,75 @@ export const RegisterForm = () => {
   };
 
   return (
-    <form action={formAction} noValidate className="space-y-4">
-      {state.status === "error" ? (
-        <p
-          role="alert"
-          className="flex items-center gap-1.5 text-xs text-danger"
+    <>
+      <form action={formAction} noValidate className="space-y-4">
+        {state.status === "error" ? (
+          <p
+            role="alert"
+            className="flex items-center gap-1.5 text-xs text-danger"
+          >
+            <ErrorIcon className="size-3.5 shrink-0 stroke-danger" />
+            <span>{state.message}</span>
+          </p>
+        ) : null}
+
+        <GACInput
+          id="name"
+          name="name"
+          label="Nome"
+          icon={<UserIcon className={iconClassName} />}
+          autoComplete="name"
+          placeholder="Seu nome"
+          defaultValue={values.name}
+          required
+          maxLength={100}
+          error={fieldErrors.name}
+        />
+
+        <GACInput
+          id="email"
+          name="email"
+          label="E-mail"
+          icon={<EmailIcon className={iconClassName} />}
+          type="email"
+          autoComplete="email"
+          placeholder="voce@email.com"
+          defaultValue={values.email}
+          required
+          error={fieldErrors.email}
+        />
+
+        <GACInput
+          id="password"
+          name="password"
+          label="Senha"
+          icon={<LockIcon className={iconClassName} />}
+          type="password"
+          autoComplete="new-password"
+          required
+          minLength={8}
+          maxLength={128}
+          error={passwordError}
+          onChange={handlePasswordChange}
+        />
+
+        <GACButton
+          type="submit"
+          pending={pending}
+          loadingText="Criando conta…"
         >
-          <ErrorIcon className="size-3.5 shrink-0 stroke-danger" />
-          <span>{state.message}</span>
-        </p>
-      ) : null}
-
-      <GACInput
-        id="name"
-        name="name"
-        label="Nome"
-        icon={<UserIcon className={iconClassName} />}
-        autoComplete="name"
-        placeholder="Seu nome"
-        defaultValue={values.name}
-        required
-        maxLength={100}
-        error={fieldErrors.name}
-      />
-
-      <GACInput
-        id="email"
-        name="email"
-        label="E-mail"
-        icon={<EmailIcon className={iconClassName} />}
-        type="email"
-        autoComplete="email"
-        placeholder="voce@email.com"
-        defaultValue={values.email}
-        required
-        error={fieldErrors.email}
-      />
-
-      <GACInput
-        id="password"
-        name="password"
-        label="Senha"
-        icon={<LockIcon className={iconClassName} />}
-        type="password"
-        autoComplete="new-password"
-        required
-        minLength={8}
-        maxLength={128}
-        error={passwordError}
-        onChange={handlePasswordChange}
-      />
-
-      <GACButton
-        type="submit"
-        pending={pending}
-        loadingText="Criando conta…"
-      >
-        Criar conta
-      </GACButton>
-    </form>
+          Criar conta
+        </GACButton>
+      </form>
+      <p className="mt-6 text-center text-sm text-navy-muted">
+        Já tem conta?{" "}
+        <Link
+          href="/login"
+          className="font-semibold text-gold transition hover:text-gold-light"
+        >
+          Entrar
+        </Link>
+      </p>
+    </>
   );
 };
