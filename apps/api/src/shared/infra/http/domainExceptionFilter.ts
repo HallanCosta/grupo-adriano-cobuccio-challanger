@@ -11,6 +11,7 @@ const statusByKind: Record<DomainErrorKind, HttpStatus> = {
   conflict: HttpStatus.CONFLICT,
   notFound: HttpStatus.NOT_FOUND,
   businessRule: HttpStatus.UNPROCESSABLE_ENTITY,
+  unauthorized: HttpStatus.UNAUTHORIZED,
 };
 
 /** Maps business errors to HTTP. Anything else falls through to Nest. */
@@ -19,6 +20,10 @@ export class DomainExceptionFilter implements ExceptionFilter {
   catch(error: DomainError, host: ArgumentsHost): void {
     const response = host.switchToHttp().getResponse<Response>();
     const statusCode = statusByKind[error.kind];
+
+    if (statusCode === HttpStatus.UNAUTHORIZED) {
+      response.setHeader('WWW-Authenticate', 'Bearer');
+    }
 
     response.status(statusCode).json({
       statusCode,
